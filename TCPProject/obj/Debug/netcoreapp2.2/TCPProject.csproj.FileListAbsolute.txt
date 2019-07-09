@@ -26,3 +26,17 @@ E:\net\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.AssemblyInfo.cs
 E:\net\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.RazorTargetAssemblyInfo.cache
 E:\net\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.dll
 E:\net\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.pdb
+D:\TCPProject\TCPProject\bin\Debug\netcoreapp2.2\TCPProject.deps.json
+D:\TCPProject\TCPProject\bin\Debug\netcoreapp2.2\TCPProject.runtimeconfig.json
+D:\TCPProject\TCPProject\bin\Debug\netcoreapp2.2\TCPProject.runtimeconfig.dev.json
+D:\TCPProject\TCPProject\bin\Debug\netcoreapp2.2\TCPProject.dll
+D:\TCPProject\TCPProject\bin\Debug\netcoreapp2.2\TCPProject.pdb
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.csprojAssemblyReference.cache
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.csproj.CoreCompileInputs.cache
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.RazorAssemblyInfo.cache
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.RazorAssemblyInfo.cs
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.AssemblyInfoInputs.cache
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.AssemblyInfo.cs
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.RazorTargetAssemblyInfo.cache
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.dll
+D:\TCPProject\TCPProject\obj\Debug\netcoreapp2.2\TCPProject.pdb

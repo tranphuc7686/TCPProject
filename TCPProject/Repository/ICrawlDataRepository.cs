@@ -9,6 +9,6 @@ namespace TCPProject.Repository
 {
     public interface ICrawlDataRepository
     {       
-        Task CrawlDataByUrlProfile(List<string> listUrlProfile);
+        Task CrawlDataByUrlProfile(List<string> listUrlProfile,int ctgId);
     }
 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj": {}
+    "D:\\TCPProject\\TCPProject\\TCPProject.csproj": {}
   },
   "projects": {
-    "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj": {
+    "D:\\TCPProject\\TCPProject\\TCPProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj",
+        "projectUniqueName": "D:\\TCPProject\\TCPProject\\TCPProject.csproj",
         "projectName": "TCPProject",
-        "projectPath": "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj",
-        "packagesPath": "C:\\Users\\tranp\\.nuget\\packages\\",
-        "outputPath": "E:\\net\\TCPProject\\TCPProject\\obj\\",
+        "projectPath": "D:\\TCPProject\\TCPProject\\TCPProject.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\TCPProject\\TCPProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\tranp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
