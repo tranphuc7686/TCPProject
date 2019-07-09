@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TCPProject.Model;
+using TCPProject.Repository;
 
 namespace TCPProject
 {
@@ -39,6 +40,7 @@ namespace TCPProject
             //config database
             services.AddDbContext<DataDbContext>(opts => opts.UseNpgsql(Configuration["ConnectionString:CommonDbString"]));
             services.AddScoped<IDataRepository, DataRepository>();
+            services.AddScoped<ICrawlDataRepository, CrawlDataImp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

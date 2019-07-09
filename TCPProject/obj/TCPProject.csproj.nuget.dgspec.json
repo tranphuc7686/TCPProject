@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\phuc.tc\\source\\repos\\TCPProject\\TCPProject\\TCPProject.csproj": {}
+    "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\phuc.tc\\source\\repos\\TCPProject\\TCPProject\\TCPProject.csproj": {
+    "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phuc.tc\\source\\repos\\TCPProject\\TCPProject\\TCPProject.csproj",
+        "projectUniqueName": "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj",
         "projectName": "TCPProject",
-        "projectPath": "C:\\Users\\phuc.tc\\source\\repos\\TCPProject\\TCPProject\\TCPProject.csproj",
-        "packagesPath": "C:\\Users\\phuc.tc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phuc.tc\\source\\repos\\TCPProject\\TCPProject\\obj\\",
+        "projectPath": "E:\\net\\TCPProject\\TCPProject\\TCPProject.csproj",
+        "packagesPath": "C:\\Users\\tranp\\.nuget\\packages\\",
+        "outputPath": "E:\\net\\TCPProject\\TCPProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\phuc.tc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tranp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.3, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
