@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CrawlDataTool.Model;
 using CrawlDataTool.Service;
 using Newtonsoft.Json.Linq;
+using TCPProject.Model;
 
 namespace TCPProject.Repository
 {
@@ -15,11 +16,13 @@ namespace TCPProject.Repository
         private const int TYPE_IMAGE = 0;
         private const int TYPE_VIDEO = 1;
         private const int TYPE_SLIDECAR = 2;
-        private readonly IDataRepository dataRepository;
-        public CrawlDataImp()
+
+        private readonly  DataDbContext dataRepository;
+        public CrawlDataImp(DataDbContext _db)
         {
-            dataRepository = new DataRepository();
+            dataRepository = _db;
         }
+
 
 
         public async Task CrawlDataByUrlProfile(List<string> listUrlProfile, int ctgId)
@@ -43,14 +46,15 @@ namespace TCPProject.Repository
              
 
 
-                int typeData = element["__typename"].Equals("GraphImage") ? 0 : (element["__typename"].Equals("GraphVideo") ? 1 : 2);
+                int typeData = element["__typename"].ToString().Equals("GraphImage") ? 0 : (element["__typename"].ToString().Equals("GraphVideo") ? 1 : 2);
+                string shortCode = (string)element["shortcode"];
                 switch (typeData)
                 {
                     case TYPE_IMAGE:
                         {
                             Data dataInsert = new Data
                             {
-                                Caption = (string)element["edge_media_to_caption"]["edges"],
+                                Caption = element["edge_media_to_caption"]["edges"].Any() ? (string)element["edge_media_to_caption"]["edges"][0]["node"]["text"] : "",
                                 Url = (string)element["display_url"],
                                 TypeData = TYPE_IMAGE,
                                 SrcThumbail = (string)element["thumbnail_src"],
@@ -62,14 +66,12 @@ namespace TCPProject.Repository
                             break;
                         }
                     case TYPE_VIDEO:
-                        {
-                            string shortCode = (string)element["shortcode"];
+                        {                            
                             await InsertDataByVideoType(shortCode, ctgId);
                             break;
                         }
                     case TYPE_SLIDECAR:
-                        {
-                            string shortCode = (string)element["shortcode"];
+                        {                           
                             await InsertDataBySlideCarType(shortCode, ctgId);
                             break;
                         }
@@ -82,28 +84,37 @@ namespace TCPProject.Repository
        
         private async Task InsertDataByImageType(Data data)
         {
-
+            await AddData(data);
         }
         private async Task InsertDataByVideoType(string shortCode, int ctgId)
         {
-            string UrlJson = "https://www.instagram.com/p/" + shortCode + "/?__a=1";
-
-            HttpClient client = new HttpClient();
-
-            string response = await client.GetStringAsync(UrlJson);
-            JObject element = JObject.Parse(response);
-            element = (JObject)element["graphql"];
-            /**/
-            Data dataInsert = new Data
+            try
             {
-                Caption = (string)element["edge_media_to_caption"]["edges"],
-                Url = (string)element["video_url"],
-                TypeData = TYPE_VIDEO,
-                SrcThumbail = (string)element["display_url"],
-                IsUser = 0,
-                CategoryId = ctgId
+                string UrlJson = "https://www.instagram.com/p/" + shortCode + "/?__a=1";
 
-            };
+                HttpClient client = new HttpClient();
+
+                string response = await client.GetStringAsync(UrlJson);
+                JObject element = JObject.Parse(response);
+                element = (JObject)element["graphql"]["shortcode_media"];
+                /**/
+                Data dataInsert = new Data
+                {
+                    Caption = element["edge_media_to_caption"]["edges"].Any() ? (string)element["edge_media_to_caption"]["edges"][0]["node"]["text"] : "",
+                    Url = (string)element["video_url"],
+                    TypeData = TYPE_VIDEO,
+                    SrcThumbail = (string)element["display_url"],
+                    IsUser = 0,
+                    CategoryId = ctgId
+
+                };
+                await AddData(dataInsert);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+            
         }
         private async Task InsertDataBySlideCarType(string shortCode, int ctgId)
         {
@@ -115,24 +126,65 @@ namespace TCPProject.Repository
             JObject element = JObject.Parse(response);
             element = (JObject)element["graphql"];
 
-            JArray listElement = (JArray)element["edge_sidecar_to_children"]["edges"];
-
-            foreach (JObject e in listElement)
+            JArray listElement = (JArray)element["shortcode_media"]["edge_sidecar_to_children"]["edges"];
+            try
             {
-                /**/
-                Data dataInsert = new Data
+                foreach (JObject e2 in listElement)
                 {
-                    Caption = (string)e["edge_media_to_caption"]["edges"],
-                    Url = (string)e["video_url"],
-                    TypeData = element["__typename"].Equals("GraphImage") ? 0 : 1,
-                    SrcThumbail = (string)e["display_resources"][0]["src"],
-                    IsUser = 0,
-                    CategoryId = ctgId
+                    JObject e = (JObject)e2["node"];
+                    Data dataInsert = null;
+                    /**/
+                    if (e["__typename"].ToString().Equals("GraphImage"))
+                    {
+                        dataInsert = new Data
+                        {
+                            Caption = element["shortcode_media"]["edge_media_to_caption"]["edges"].Any() ? (string)element["shortcode_media"]["edge_media_to_caption"]["edges"][0]["node"]["text"] : "",
+                            Url = (string)e["display_url"],
+                            TypeData = TYPE_IMAGE,
+                            SrcThumbail = (string)e["display_resources"][0]["src"],
+                            IsUser = 0,
+                            CategoryId = ctgId
 
-                };
+                        };
+                    }
+                    else
+                    {
+                        dataInsert = new Data
+                        {
+                            Caption = element["shortcode_media"]["edge_media_to_caption"]["edges"].Any() ? (string)element["shortcode_media"]["edge_media_to_caption"]["edges"][0]["node"]["text"] : "",
+                            Url = (string)e["video_url"],
+                            TypeData = TYPE_VIDEO,
+                            SrcThumbail = (string)e["display_resources"][0]["src"],
+                            IsUser = 0,
+                            CategoryId = ctgId
+
+                        };
+                    }
+                    await AddData(dataInsert);
+
+                }
             }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+            
 
            
+        }
+
+        public async Task<int> AddData(Data data)
+        {
+            if (dataRepository != null)
+            {
+                await dataRepository.Datas.AddAsync(data);
+                await dataRepository.SaveChangesAsync();
+
+
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

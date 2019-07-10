@@ -1,6 +1,7 @@
 ﻿using CrawlDataTool.Model;
 using CrawlDataTool.Service;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,8 +71,16 @@ namespace TCPProject
         {
             if (db != null)
             {
-                await db.Datas.AddAsync(data);
-                await db.SaveChangesAsync();
+                try
+                {
+                    await db.Datas.AddAsync(data);
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.ToString());
+                }
+               
 
                 return 1;
             }

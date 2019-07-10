@@ -10,11 +10,13 @@ namespace TCPProject.Model
         public DataDbContext(DbContextOptions<DataDbContext> options)
           : base(options)
         {
-        }      
+        }
+       
 
         public DbSet<Data> Datas { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Applications> Applications { get; set; }
-    }
 
+
+    }
 }

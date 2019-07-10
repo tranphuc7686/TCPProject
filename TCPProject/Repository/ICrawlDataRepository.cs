@@ -10,5 +10,7 @@ namespace TCPProject.Repository
     public interface ICrawlDataRepository
     {       
         Task CrawlDataByUrlProfile(List<string> listUrlProfile,int ctgId);
+
+        Task<int> AddData(Data data);
     }
 }

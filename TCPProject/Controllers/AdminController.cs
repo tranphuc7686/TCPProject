@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TCPProject.Repository;
+using TCPProject.ViewModel;
 
 namespace TCPProject.Controllers
 {
@@ -25,7 +26,7 @@ namespace TCPProject.Controllers
         // GET api/admin/refeshdata/
         // get id Categories by list url profile
         [HttpPost("refeshdata")]
-        public async Task<IActionResult> RefeshData([FromBody] List<string> model)
+        public async Task<IActionResult> RefeshData([FromBody] CrawlDataViewModel model)
         {
             if (model == null)
             {
@@ -34,7 +35,7 @@ namespace TCPProject.Controllers
 
             try
             {
-                await _crawlDataRepository.CrawlDataByUrlProfile(model);               
+                await _crawlDataRepository.CrawlDataByUrlProfile(model.model,model.ctgId);               
 
                 return Ok();
             }
