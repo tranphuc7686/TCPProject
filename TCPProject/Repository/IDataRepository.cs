@@ -10,7 +10,7 @@ namespace TCPProject
     {
         Task<List<Category>> GetCategories();
 
-        Task<List<DataViewModel>> GetDatas(int ctgId);
+        Task<List<DataViewModel>> GetDatas(int ctgId, int index);
 
         Task<List<CategoryViewModel>> GetCategoriesById(int ctgId);
 

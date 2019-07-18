@@ -31,8 +31,8 @@ namespace TCPProject.Controllers
         }
         // GET api/Common/Datas/5
         // get id data by ctg id
-        [HttpPost("Datas/{id}")]
-        public async Task<IActionResult> GetDataByIdCategory(int id)
+        [HttpPost("Datas/{id}/{index}")]
+        public async Task<IActionResult> GetDataByIdCategory(int id, int index)
         {
             if (id == null)
             {
@@ -41,7 +41,7 @@ namespace TCPProject.Controllers
 
             try
             {
-                var post = await dataRepository.GetDatas(id);
+                var post = await dataRepository.GetDatas(id, int index);
 
                 if (post == null)
                 {

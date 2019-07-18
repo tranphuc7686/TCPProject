@@ -29,11 +29,11 @@ namespace TCPProject
             return null;
         }
 
-        public async Task<List<DataViewModel>> GetDatas(int ctgId)
+        public async Task<List<DataViewModel>> GetDatas(int ctgId, int index)
         {
             if (db != null)
             {
-                return await db.Datas.Where(e => e.CategoryId == ctgId).Select(e => new DataViewModel
+                return await db.Datas.Skip(30).Take(index).Where(e => e.CategoryId == ctgId).Select(e => new DataViewModel
                 {
                     Id = e.Id,
                     Caption = e.Caption,
