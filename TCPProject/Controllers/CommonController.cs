@@ -41,7 +41,7 @@ namespace TCPProject.Controllers
 
             try
             {
-                var post = await dataRepository.GetDatas(id, int index);
+                var post = await dataRepository.GetDatas(id, index);
 
                 if (post == null)
                 {

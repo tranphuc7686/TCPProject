@@ -39,8 +39,9 @@ namespace TCPProject.Controllers
 
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.Write(ex.ToString() + " BugBugBugBug");
                 return BadRequest();
             }
         }

@@ -39,6 +39,7 @@ namespace TCPProject.Repository
 
             string response = await client.GetStringAsync(UrlJson);
             JObject rss = JObject.Parse(response);
+            
             JArray arrJsonData =(JArray)rss["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"];
             foreach(JObject element2 in arrJsonData)
             {
