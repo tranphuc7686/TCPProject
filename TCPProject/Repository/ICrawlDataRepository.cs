@@ -1,5 +1,6 @@
 ﻿using CrawlDataTool.Model;
 using CrawlDataTool.Service;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace TCPProject.Repository
         Task CrawlDataByUrlProfile(List<string> listUrlProfile,int ctgId);
 
         Task<int> AddData(Data data);
+        Task<string> AddImageAsync(IFormFile data);
     }
 }

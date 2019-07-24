@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CrawlDataTool.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TCPProject.Repository;
 
 namespace TCPProject.Controllers
 {
@@ -11,9 +15,11 @@ namespace TCPProject.Controllers
     public class CommonController : ControllerBase
     {
         private readonly IDataRepository dataRepository;
-        public CommonController(IDataRepository _dataRepository)
+        private readonly ICrawlDataRepository crawlDataRepository;
+        public CommonController(IDataRepository _dataRepository, ICrawlDataRepository _crawlDataRepository)
         {
             dataRepository = _dataRepository;
+            crawlDataRepository = _crawlDataRepository;
         }
 
         // GET api/Common
@@ -89,12 +95,18 @@ namespace TCPProject.Controllers
         [HttpGet("RefeshData")]
         public void RefeshData()
         {
-            
+
         }
         // POST api/Common
         [HttpPost]
-        public void Post([FromBody] string Data)
+        public async Task<IActionResult> Post([FromBody] Data data)
         {
+            if (await crawlDataRepository.AddData(data) == 0)
+            {
+                return BadRequest();
+            }
+            return Ok();
+            
         }
 
         // PUT api/Common/5
@@ -107,6 +119,13 @@ namespace TCPProject.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        [HttpPost, Route("datas/upload")]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+           
+            return Ok(await crawlDataRepository.AddImageAsync(file));
+
         }
     }
 }

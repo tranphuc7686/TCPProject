@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CrawlDataTool.Model;
 using CrawlDataTool.Service;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 using TCPProject.Model;
+
+using System.Drawing;
 
 namespace TCPProject.Repository
 {
@@ -187,5 +191,55 @@ namespace TCPProject.Repository
 
             return 0;
         }
+
+        public async Task<string> AddImageAsync(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return  "file not selected" ;
+            string path = "";
+            if (IsValidImageFile(file))
+            {
+                path = Path.Combine(
+                      Directory.GetCurrentDirectory(), "Images",
+                      file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+            }
+            else
+            {
+                path = Path.Combine(
+                     Directory.GetCurrentDirectory(), "Videos",
+                     file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+            }
+
+
+            return path;
+
+        }
+        private bool IsValidImageFile(IFormFile file)
+        {
+
+            try
+            {
+                var isValidImage = Image.FromStream(file.OpenReadStream());
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+      
+
+      
     }
 }
