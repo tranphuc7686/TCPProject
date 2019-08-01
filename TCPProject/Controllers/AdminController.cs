@@ -13,9 +13,12 @@ namespace TCPProject.Controllers
     public class AdminController : ControllerBase
     {
         private readonly ICrawlDataRepository _crawlDataRepository;
-        public AdminController(ICrawlDataRepository crawlDataRepository)
+
+        private readonly IDataRepository _dataRepository;
+        public AdminController(ICrawlDataRepository crawlDataRepository, IDataRepository dataRepository)
         {
             _crawlDataRepository = crawlDataRepository;
+            _dataRepository = dataRepository;
         }
         // GET api/Common
         [HttpGet]
@@ -45,6 +48,84 @@ namespace TCPProject.Controllers
                 return BadRequest();
             }
         }
+
+        // GET api/admin/update/5
+        // update status element pending
+        [HttpPost("update/{id}")]
+        public async Task<IActionResult> PublicElement(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var post = _dataRepository.PublicElement(id);
+
+                if (post == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(post);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+        // GET api/Common/Datas/5
+        // get id data by ctg id
+        [HttpPost("datas/{id}/{index}")]
+        public async Task<IActionResult> GetDataPendingByIdCategory(int id, int index)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var post = await _dataRepository.GetDatasPending(id, index);
+
+                if (post == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(post);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        // GET api/admin/update/5
+        // update status element pending
+        [HttpPost("applications")]
+        public async Task<IActionResult> GetAllApplications()
+        {
+            
+
+            try
+            {
+                var post = await _dataRepository.GetApplications();
+
+                if (post == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(post);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
 
     }
 }

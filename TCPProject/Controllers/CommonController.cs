@@ -101,6 +101,7 @@ namespace TCPProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Data data)
         {
+            data.Id = null;
             if (await crawlDataRepository.AddData(data) == 0)
             {
                 return BadRequest();

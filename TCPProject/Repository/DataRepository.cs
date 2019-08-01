@@ -3,6 +3,8 @@ using CrawlDataTool.Service;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using TCPProject.Model;
@@ -14,6 +16,7 @@ namespace TCPProject
     : IDataRepository
     {
         DataDbContext db;
+        public const int PENDING_STATUS = 2;
         public DataRepository(DataDbContext _db)
         {
             db = _db;
@@ -33,7 +36,7 @@ namespace TCPProject
         {
             if (db != null)
             {
-                return await db.Datas.Where(e => e.CategoryId == ctgId).Skip(index).Take(30).Select(e => new DataViewModel
+                return await db.Datas.Where(e => e.CategoryId == ctgId && e.IsUser != PENDING_STATUS).Skip(index).Take(30).Select(e => new DataViewModel
                 {
                     Id = e.Id,
                     Caption = e.Caption,
@@ -152,6 +155,108 @@ namespace TCPProject
             return null;
         }
 
-        
+        public async Task<int> PublicElement(string id)
+        {
+            Data resulf = new Data();
+
+            if (db != null)
+            {
+
+                resulf = db.Datas
+                    .Where(e => e.Id.Equals(id))
+                    .First();
+                resulf.IsUser = 1;
+                await UpdatePost(resulf);
+                
+            }
+
+            return 0;
+        }
+
+        Task IDataRepository.PublicElement(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<DataViewModel>> GetDatasPending(int appId, int index)
+        {
+            if (db != null)
+            {
+                return await db.Datas.Where(e => e.Category.ApplicationsId == appId && e.IsUser == PENDING_STATUS).Skip(index).Take(30).Select(e => new DataViewModel
+                {
+                    Id = e.Id,
+                    Caption = e.Caption,
+                    IsUser = e.IsUser,
+                    SrcThumbail = e.SrcThumbail,
+                    TypeData = e.TypeData,
+                    Url = e.Url
+                }).ToListAsync();
+            }
+
+            return null;
+        }
+
+        public Task<List<ApplicationAdminViewModel>> GetApplications()
+        {
+
+
+            if (db != null)
+            {
+
+                string script = "SELECT APP.\"Id\",APP.\"Name\",COUNT(DATAS.\"Id\") FROM \"Applications\" APP INNER JOIN \"Categories\" CTG ON APP.\"Id\" = CTG.\"ApplicationsId\" LEFT JOIN \"Datas\" DATAS ON CTG.\"Id\" = DATAS.\"CategoryId\" AND DATAS.\"IsUser\" = 2 GROUP BY APP.\"Id\" ORDER BY APP.\"Id\"";
+                using (var context = db)
+                {
+                    using (var command = context.Database.GetDbConnection().CreateCommand())
+                    {
+                        command.CommandText = script;
+                        command.CommandType = CommandType.Text;
+
+                        context.Database.OpenConnection();
+
+                        using (var result = command.ExecuteReader())
+                        {
+
+
+                            while (result.Read())
+                            {
+                                var id = result[0];
+                                var name = result[1];
+                                var count = result[2];
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
+            return null;
+        }
+       
+
+        private List<ApplicationAdminViewModel> ToApplicationsViewModel(DbDataReader dataReader)
+        {
+            List<ApplicationAdminViewModel> resulf = new List<ApplicationAdminViewModel>();
+            using (var result = dataReader)
+            {
+
+                while (result.Read())
+                {
+                    
+                    var Count =result[2];
+                    resulf.Add(new ApplicationAdminViewModel
+                    {
+                        applications = new Applications
+                        {
+                            Id = (int)result[0],
+                            Name = result[1].ToString()
+                        },
+                        CountElementPending = 0
+                    });
+                }
+                return resulf;
+
+            }
+        }
     }
 }

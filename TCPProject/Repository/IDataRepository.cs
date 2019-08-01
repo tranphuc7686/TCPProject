@@ -2,6 +2,7 @@
 using CrawlDataTool.Service;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TCPProject.Model;
 using TCPProject.ViewModel;
 
 namespace TCPProject
@@ -21,5 +22,9 @@ namespace TCPProject
         Task<int> DeleteData(int? dataId);
 
         Task UpdateData(Data data);
+        Task PublicElement(string id);
+
+        Task<List<DataViewModel>> GetDatasPending(int ctgId, int index);
+        Task<List<ApplicationAdminViewModel>> GetApplications();
     }
 }
