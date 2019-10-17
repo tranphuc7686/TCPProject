@@ -25,7 +25,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "nativeDebugging": false,
-      "applicationUrl": "http://10.10.10.100:5000"
+      "applicationUrl": "http://54.71.204.197:5000"
     }
   }
 }
