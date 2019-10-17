@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CrawlDataTool.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using TCPProject.Repository;
 
 namespace TCPProject.Controllers
@@ -37,9 +38,11 @@ namespace TCPProject.Controllers
         }
         // GET api/Common/Datas/5
         // get id data by ctg id
-        [HttpPost("Datas/{id}/{index}")]
-        public async Task<IActionResult> GetDataByIdCategory(int id, int index)
+        [HttpPost("Datas")]
+        public async Task<IActionResult> GetDataByIdCategory([FromBody]JObject data)
         {
+            int id = int.Parse(data.GetValue("id").ToString());
+            int index = int.Parse(data.GetValue("index").ToString());
             if (id == null)
             {
                 return BadRequest();
@@ -54,7 +57,7 @@ namespace TCPProject.Controllers
                     return NotFound();
                 }
 
-                return Ok(post);
+                return Ok(new { data = post });
             }
             catch (Exception)
             {

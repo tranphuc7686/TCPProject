@@ -41,6 +41,10 @@ namespace TCPProject
             services.AddDbContext<DataDbContext>(opts => opts.UseNpgsql(Configuration["ConnectionString:CommonDbString"]));
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<ICrawlDataRepository, CrawlDataImp>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title ="Core api", Description="Swagger core api" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +63,11 @@ namespace TCPProject
             app.UseHttpsRedirection();
             app.UseCors("TCPProject");
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core api");
+            });
         }
     }
 }

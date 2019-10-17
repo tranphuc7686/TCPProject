@@ -24,7 +24,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://10.10.10.187:5000"
+      "nativeDebugging": false,
+      "applicationUrl": "http://10.10.10.100:5000"
     }
   }
 }
