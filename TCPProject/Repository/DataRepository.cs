@@ -44,7 +44,7 @@ namespace TCPProject
                     SrcThumbail = e.SrcThumbail,
                     TypeData = e.TypeData,
                     Url = e.Url
-                }).ToListAsync();
+                }).OrderBy(a => Guid.NewGuid()).ToListAsync();
             }
 
             return null;

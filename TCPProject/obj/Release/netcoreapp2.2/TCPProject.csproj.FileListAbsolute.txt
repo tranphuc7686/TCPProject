@@ -12,3 +12,17 @@ C:\Users\phuc.tc\source\repos\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TC
 C:\Users\phuc.tc\source\repos\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.dll
 C:\Users\phuc.tc\source\repos\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.pdb
 C:\Users\phuc.tc\source\repos\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.csprojAssemblyReference.cache
+E:\net\TCPProject\TCPProject\bin\Release\netcoreapp2.2\TCPProject.deps.json
+E:\net\TCPProject\TCPProject\bin\Release\netcoreapp2.2\TCPProject.runtimeconfig.json
+E:\net\TCPProject\TCPProject\bin\Release\netcoreapp2.2\TCPProject.runtimeconfig.dev.json
+E:\net\TCPProject\TCPProject\bin\Release\netcoreapp2.2\TCPProject.dll
+E:\net\TCPProject\TCPProject\bin\Release\netcoreapp2.2\TCPProject.pdb
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.csprojAssemblyReference.cache
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.csproj.CoreCompileInputs.cache
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.RazorAssemblyInfo.cache
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.RazorAssemblyInfo.cs
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.AssemblyInfoInputs.cache
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.AssemblyInfo.cs
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.RazorTargetAssemblyInfo.cache
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.dll
+E:\net\TCPProject\TCPProject\obj\Release\netcoreapp2.2\TCPProject.pdb
